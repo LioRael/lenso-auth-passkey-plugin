@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["idempotency_key", "challenge_id", "credential_json"],
+  "properties": {
+    "idempotency_key": {
+      "type": "string"
+    },
+    "challenge_id": {
+      "type": "string"
+    },
+    "credential_json": {
+      "type": "string",
+      "x-lenso-sensitive": true
+    }
+  },
+  "additionalProperties": false,
+  "title": "FinishAuthenticationRequest"
+}
