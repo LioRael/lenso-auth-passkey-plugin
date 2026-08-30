@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "idempotency_key",
+    "challenge_id",
+    "subject",
+    "expected_revision",
+    "label",
+    "credential_json"
+  ],
+  "properties": {
+    "idempotency_key": {
+      "type": "string"
+    },
+    "challenge_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "expected_revision": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "credential_json": {
+      "type": "string",
+      "x-lenso-sensitive": true
+    }
+  },
+  "additionalProperties": false,
+  "title": "FinishRegistrationRequest"
+}

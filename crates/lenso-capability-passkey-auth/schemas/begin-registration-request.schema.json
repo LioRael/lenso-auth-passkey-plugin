@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["idempotency_key", "subject", "user_name", "display_name", "expected_revision"],
+  "properties": {
+    "idempotency_key": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "expected_revision": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "title": "BeginRegistrationRequest"
+}

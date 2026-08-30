@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["revision", "passkeys"],
+  "properties": {
+    "revision": {
+      "type": "string"
+    },
+    "passkeys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PasskeySummary"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Nullable_string": {
+      "type": ["string", "null"]
+    },
+    "PasskeySummary": {
+      "type": "object",
+      "required": [
+        "passkey_id",
+        "label",
+        "credential_id",
+        "sign_count",
+        "revision",
+        "created_at",
+        "last_used_at",
+        "revoked_at"
+      ],
+      "properties": {
+        "passkey_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "credential_id": {
+          "type": "string"
+        },
+        "sign_count": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_used_at": {
+          "format": "date-time",
+          "$ref": "#/$defs/Nullable_string"
+        },
+        "revoked_at": {
+          "format": "date-time",
+          "$ref": "#/$defs/Nullable_string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "title": "ListPasskeysResponse"
+}

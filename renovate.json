@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Keep WebAuthn and Lenso security boundaries reviewed",
+      "matchPackageNames": ["webauthn-rs", "webauthn-authenticator-rs", "/^lenso(?:-|$)/"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    }
+  ]
+}

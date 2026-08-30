@@ -1,0 +1,50 @@
+{
+  "id": "lenso.auth.passkey@1",
+  "version": "1.0.0",
+  "portable": true,
+  "cross_lane_transfer": true,
+  "operations": [
+    {
+      "name": "begin_registration",
+      "interaction": "request",
+      "request_schema": "schemas/begin-registration-request.schema.json",
+      "response_schema": "schemas/begin-registration-response.schema.json",
+      "domain_error_schema": "schemas/begin-registration-error.schema.json"
+    },
+    {
+      "name": "finish_registration",
+      "interaction": "request",
+      "request_schema": "schemas/finish-registration-request.schema.json",
+      "response_schema": "schemas/finish-registration-response.schema.json",
+      "domain_error_schema": "schemas/finish-registration-error.schema.json"
+    },
+    {
+      "name": "begin_authentication",
+      "interaction": "request",
+      "request_schema": "schemas/begin-authentication-request.schema.json",
+      "response_schema": "schemas/begin-authentication-response.schema.json",
+      "domain_error_schema": "schemas/begin-authentication-error.schema.json"
+    },
+    {
+      "name": "finish_authentication",
+      "interaction": "request",
+      "request_schema": "schemas/finish-authentication-request.schema.json",
+      "response_schema": "schemas/finish-authentication-response.schema.json",
+      "domain_error_schema": "schemas/finish-authentication-error.schema.json"
+    },
+    {
+      "name": "list_passkeys",
+      "interaction": "request",
+      "request_schema": "schemas/list-passkeys-request.schema.json",
+      "response_schema": "schemas/list-passkeys-response.schema.json",
+      "domain_error_schema": "schemas/list-passkeys-error.schema.json"
+    },
+    {
+      "name": "revoke_passkey",
+      "interaction": "request",
+      "request_schema": "schemas/revoke-passkey-request.schema.json",
+      "response_schema": "schemas/revoke-passkey-response.schema.json",
+      "domain_error_schema": "schemas/revoke-passkey-error.schema.json"
+    }
+  ]
+}

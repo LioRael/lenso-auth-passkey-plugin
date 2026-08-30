@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["idempotency_key", "subject", "passkey_id", "expected_revision"],
+  "properties": {
+    "idempotency_key": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "passkey_id": {
+      "type": "string"
+    },
+    "expected_revision": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "title": "RevokePasskeyRequest"
+}

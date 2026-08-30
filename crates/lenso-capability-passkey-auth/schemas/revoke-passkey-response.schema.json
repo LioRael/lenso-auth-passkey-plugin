@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["passkey_id", "revoked", "revision", "passkey_revision"],
+  "properties": {
+    "passkey_id": {
+      "type": "string"
+    },
+    "revoked": {
+      "type": "boolean"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "passkey_revision": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "title": "RevokePasskeyResponse"
+}

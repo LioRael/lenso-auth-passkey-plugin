@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["challenge_id", "public_key_json", "expires_at", "revision"],
+  "properties": {
+    "challenge_id": {
+      "type": "string"
+    },
+    "public_key_json": {
+      "type": "string",
+      "x-lenso-sensitive": true
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revision": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "title": "BeginRegistrationResponse"
+}
