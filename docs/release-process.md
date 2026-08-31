@@ -36,7 +36,6 @@ cargo check --locked --workspace --all-targets
 cargo test --locked --workspace
 cargo clippy --locked --workspace --all-targets -- -D warnings
 LENSO_PACKAGE_ALLOW_DIRTY=1 \
-  LENSO_CARGO_BIN=/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo \
   ./scripts/check-public-packages.sh
 ./scripts/check-repository-boundary.sh
 ```

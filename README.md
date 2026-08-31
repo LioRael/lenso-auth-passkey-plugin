@@ -21,14 +21,13 @@ See [the Plugin card](docs/plugin-card.md) for the ownership boundary and
 ## Local validation
 
 ```sh
-/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo fmt --all -- --check
-/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo check --locked --workspace --all-targets
-/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo test --locked --workspace
-/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo clippy --locked --workspace --all-targets -- -D warnings
+cargo fmt --all -- --check
+cargo check --locked --workspace --all-targets
+cargo test --locked --workspace
+cargo clippy --locked --workspace --all-targets -- -D warnings
 lenso-contract-codegen check crates/lenso-capability-passkey-auth/capability.json \
   --rust crates/lenso-capability-passkey-auth/src/generated.rs
 LENSO_PACKAGE_ALLOW_DIRTY=1 \
-  LENSO_CARGO_BIN=/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo \
   ./scripts/check-public-packages.sh
 ./scripts/check-repository-boundary.sh
 ```
