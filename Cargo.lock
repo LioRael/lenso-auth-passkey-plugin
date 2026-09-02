@@ -984,7 +984,7 @@ dependencies = [
 
 [[package]]
 name = "lenso-auth-passkey-plugin"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aes-gcm",
  "base64 0.22.1",
@@ -1081,7 +1081,7 @@ dependencies = [
 
 [[package]]
 name = "lenso-capability-passkey-auth"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "futures",
  "lenso-contract-authoring",
