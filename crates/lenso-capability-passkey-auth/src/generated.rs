@@ -3,13 +3,16 @@ use std::{fmt, rc::Rc};
 use futures::future::LocalBoxFuture;
 use lenso_kernel::{InvocationContext, NativeRequestEndpoint, NativeRequestFuture, NativeRequestHandle, PluginDependencies, RequestCapability, RuntimeFailure};
 
-use lenso_plugin_authoring::{BoundCapabilityClient, CapabilityClient, CapabilityClientMany};
+use lenso_plugin_authoring::{BoundCapabilityClient, CapabilityClient, CapabilityClientMany, CapabilityReference};
 pub const CAPABILITY_ID: &str = "lenso.auth.passkey@1";
 pub const DESCRIPTOR_VERSION: &str = "1.0.0";
+pub const DESCRIPTOR_DIGEST: &str = "sha256:dd0dd21cf5acdd1bd5c31d6924b666a06f519b072fa5744a4aa32e1960214d02";
 pub const PORTABLE: bool = true;
 pub const CROSS_LANE_TRANSFER: bool = true;
 pub const PASSKEY_CAPABILITY_ID: &str = CAPABILITY_ID;
 pub const PASSKEY_DESCRIPTOR_VERSION: &str = DESCRIPTOR_VERSION;
+pub const PASSKEY_DESCRIPTOR_DIGEST: &str = DESCRIPTOR_DIGEST;
+pub const PASSKEY_CONTRACT: CapabilityReference<PasskeyClient> = CapabilityReference::new(CAPABILITY_ID, DESCRIPTOR_VERSION, DESCRIPTOR_DIGEST);
 
 #[doc(hidden)]
 #[macro_export]
@@ -17,11 +20,23 @@ macro_rules! __lenso_provided_passkey { () => { "{\"capability_id\":\"lenso.auth
 
 #[doc(hidden)]
 #[macro_export]
-macro_rules! __lenso_required_passkey_client { () => { "{\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"one\"}" }; }
+macro_rules! __lenso_required_passkey_client {
+    () => { "{\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"one\"}" };
+    ($requirement_id:literal) => { concat!("{\"requirement_id\":", stringify!($requirement_id), ",\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"one\"}") };
+}
 
 #[doc(hidden)]
 #[macro_export]
-macro_rules! __lenso_required_many_passkey_client { () => { "{\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"many\"}" }; }
+macro_rules! __lenso_required_optional_passkey_client {
+    ($requirement_id:literal) => { concat!("{\"requirement_id\":", stringify!($requirement_id), ",\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"optional\"}") };
+}
+
+#[doc(hidden)]
+#[macro_export]
+macro_rules! __lenso_required_many_passkey_client {
+    () => { "{\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"many\"}" };
+    ($requirement_id:literal) => { concat!("{\"requirement_id\":", stringify!($requirement_id), ",\"capability_id\":\"lenso.auth.passkey@1\",\"descriptor_version\":\"1.0.0\",\"cardinality\":\"many\"}") };
+}
 
 pub const BEGIN_AUTHENTICATION_OPERATION: &str = "begin_authentication";
 pub const BEGIN_REGISTRATION_OPERATION: &str = "begin_registration";
@@ -1139,6 +1154,116 @@ macro_rules! __lenso_native_lower_passkey {
     };
 }
 
+#[doc(hidden)]
+#[macro_export]
+macro_rules! __lenso_native_lower_object_passkey {
+    ($object:ty, $plugin:ty, $support:path) => {
+        use $support as __LensoNativeSupportPasskey;
+        impl $crate::PasskeyProvider for $object {
+        fn begin_authentication(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::BeginAuthenticationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyBeginAuthentication> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::begin_authentication(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyBeginAuthenticationResult::__lenso_into_result(result)
+            })
+        }
+        fn begin_registration(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::BeginRegistrationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyBeginRegistration> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::begin_registration(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyBeginRegistrationResult::__lenso_into_result(result)
+            })
+        }
+        fn finish_authentication(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::FinishAuthenticationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyFinishAuthentication> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::finish_authentication(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyFinishAuthenticationResult::__lenso_into_result(result)
+            })
+        }
+        fn finish_registration(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::FinishRegistrationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyFinishRegistration> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::finish_registration(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyFinishRegistrationResult::__lenso_into_result(result)
+            })
+        }
+        fn list_passkeys(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::ListPasskeysRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyListPasskeys> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::list_passkeys(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyListPasskeysResult::__lenso_into_result(result)
+            })
+        }
+        fn revoke_passkey(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::RevokePasskeyRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyRevokePasskey> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                let result = <$plugin>::revoke_passkey(plugin.as_ref(), context, request).await;
+                $crate::__LensoIntoPasskeyRevokePasskeyResult::__lenso_into_result(result)
+            })
+        }
+        }
+    };
+}
+
+#[doc(hidden)]
+#[macro_export]
+macro_rules! __lenso_native_lower_trait_object_passkey {
+    ($object:ty, $plugin:ty, $support:path) => {
+        use $support as __LensoNativeSupportPasskey;
+        impl $crate::PasskeyProvider for $object {
+        fn begin_authentication(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::BeginAuthenticationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyBeginAuthentication> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::begin_authentication(plugin.as_ref(), context, request).await
+            })
+        }
+        fn begin_registration(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::BeginRegistrationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyBeginRegistration> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::begin_registration(plugin.as_ref(), context, request).await
+            })
+        }
+        fn finish_authentication(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::FinishAuthenticationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyFinishAuthentication> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::finish_authentication(plugin.as_ref(), context, request).await
+            })
+        }
+        fn finish_registration(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::FinishRegistrationRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyFinishRegistration> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::finish_registration(plugin.as_ref(), context, request).await
+            })
+        }
+        fn list_passkeys(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::ListPasskeysRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyListPasskeys> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::list_passkeys(plugin.as_ref(), context, request).await
+            })
+        }
+        fn revoke_passkey(&self, context: __LensoNativeSupportPasskey::InvocationContext, request: $crate::RevokePasskeyRequest) -> __LensoNativeSupportPasskey::NativeRequestFuture<$crate::PasskeyRevokePasskey> {
+            let object = self.clone();
+            ::std::boxed::Box::pin(async move {
+                let plugin = object.get()?;
+                <$plugin as $crate::PasskeyProvider>::revoke_passkey(plugin.as_ref(), context, request).await
+            })
+        }
+        }
+    };
+}
+
 #[derive(Debug)]
 struct PasskeyRequestEndpoint { provider: Rc<dyn PasskeyProvider> }
 
@@ -1279,7 +1404,7 @@ macro_rules! __lenso_native_provide_passkey {
     }};
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct PasskeyClient {
     begin_authentication: NativeRequestHandle<PasskeyBeginAuthentication>,
     begin_registration: NativeRequestHandle<PasskeyBeginRegistration>,
@@ -1291,6 +1416,13 @@ pub struct PasskeyClient {
 impl PasskeyClient {
     pub fn from_dependencies(dependencies: &PluginDependencies) -> Result<Self, RuntimeFailure> {
         <Self as CapabilityClient>::from_dependencies(dependencies)
+    }
+
+    pub fn from_requirement(
+        dependencies: &PluginDependencies,
+        requirement_id: &str,
+    ) -> Result<Self, RuntimeFailure> {
+        <Self as CapabilityClient>::from_requirement(dependencies, requirement_id)
     }
 
     pub async fn begin_authentication(&self, request: BeginAuthenticationRequest) -> Result<BeginAuthenticationResponse, PasskeyBeginAuthenticationInvocationError> {
@@ -1384,6 +1516,14 @@ impl CapabilityClient for PasskeyClient {
         })
     }
 
+    fn from_requirement(
+        dependencies: &PluginDependencies,
+        requirement_id: &str,
+    ) -> Result<Self, RuntimeFailure> {
+        let dependencies = dependencies.requirement(requirement_id)?;
+        Self::from_dependencies(&dependencies)
+    }
+
     fn already_connected() -> RuntimeFailure {
         RuntimeFailure::PluginFailure {
             detail: format!("Capability Port {CAPABILITY_ID} was connected more than once"),
@@ -1413,6 +1553,14 @@ impl CapabilityClientMany for PasskeyClient {
                 ))
             })
             .collect()
+    }
+
+    fn many_from_requirement(
+        dependencies: &PluginDependencies,
+        requirement_id: &str,
+    ) -> Result<Vec<BoundCapabilityClient<Self>>, RuntimeFailure> {
+        let dependencies = dependencies.requirement(requirement_id)?;
+        Self::many_from_dependencies(&dependencies)
     }
 }
 
