@@ -15,8 +15,9 @@ Secrets to resolve its database URL and idempotency-receipt encryption key.
 Browser HTTP routes, cookies, JavaScript calls to `navigator.credentials`, and
 account-recovery policy remain separate Adapter/product concerns.
 
-See [the Plugin card](docs/plugin-card.md) for the ownership boundary and
-[the release process](docs/release-process.md) for validation and publication.
+See [the Plugin card](docs/plugin-card.md) for the ownership boundary,
+[CONTRIBUTING.md](CONTRIBUTING.md) for editor, agent, and maintainer handoffs,
+and [the release process](docs/release-process.md) for validation and publication.
 
 ## Local validation
 

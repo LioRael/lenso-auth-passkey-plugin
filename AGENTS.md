@@ -2,7 +2,7 @@
 
 This repository owns only the portable Passkey Capability and its removable
 PostgreSQL implementation. Read `CONTEXT.md`, local ADRs, and
-`docs/release-process.md` before architecture or release work.
+`docs/release-process.md`, and `CONTRIBUTING.md` before architecture or release work.
 
 Use source-first Capability authoring: change `src/contract.rs`, intentionally
 refresh the Descriptor/Schemas with `LENSO_UPDATE_CONTRACT_SNAPSHOT=1`, then
@@ -18,3 +18,5 @@ allowed ingress caller and never infer ambient Auth authority.
 Run Cargo through
 `/Users/leosouthey/Projects/framework/.lenso-tools/bin/lenso-cargo`. Use concise
 imperative Conventional Commit subjects under 72 characters.
+
+Delivery and review rules are documented in `CONTRIBUTING.md`; the managed Delta procedure is `.agents/skills/land/SKILL.md`.
