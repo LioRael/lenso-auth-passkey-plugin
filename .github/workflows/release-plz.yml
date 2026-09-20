@@ -35,9 +35,13 @@ jobs:
       - name: Checkout immutable SHA
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          ref: ${{ inputs.commit_sha }}
+          ref: main
           fetch-depth: 0
           persist-credentials: false
+      - name: Verify checkout matches immutable SHA
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+        run: test "$(git rev-parse HEAD)" = "$COMMIT_SHA"
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@fa04a1451ff1842e2626ccb99004d0195b455a88 # stable
         with:
